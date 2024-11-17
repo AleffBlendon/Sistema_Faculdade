@@ -43,10 +43,10 @@ Gerar relatórios e estatísticas sobre cursos e alunos.
 
 Tabelas a serem criadas:
 
-Alunos
-Cursos
-Disciplinas
-Professores
-Turmas
-Matrículas (associação entre alunos, turmas e disciplinas)
-Notas
+Alunos,
+Cursos,
+Disciplinas,
+Professores,
+Turmas,
+Matrículas,
+Notas.
