@@ -1,0 +1,90 @@
+CREATE DATABASE db_sistema_faculdade;
+
+USE db_sistema_faculdade;
+
+#Tabela de endereços
+CREATE TABLE tbl_enderecos (
+    id_endereco INT PRIMARY KEY AUTO_INCREMENT, 
+    logradouro VARCHAR(255) NOT NULL, 
+    numero VARCHAR(10) NOT NULL, 
+    bairro VARCHAR(100) NOT NULL, 
+    cidade VARCHAR(100) NOT NULL, 
+    estado VARCHAR(2) NOT NULL, 
+    cep VARCHAR(10) NOT NULL
+);
+
+#Tabela de alunos
+CREATE TABLE tbl_alunos (
+    id_aluno INT PRIMARY KEY AUTO_INCREMENT, 
+    nome VARCHAR(255) NOT NULL, 
+    data_nascimento DATE NOT NULL, 
+    cpf VARCHAR(14) UNIQUE NOT NULL, 
+    email VARCHAR(255) UNIQUE NOT NULL, 
+    senha VARCHAR(255) NOT NULL, 
+    telefone VARCHAR(15) NOT NULL, 
+    id_endereco INT NOT NULL,
+    FOREIGN KEY (id_endereco) REFERENCES tbl_enderecos(id_endereco)
+);
+
+#Tabela de cursos
+CREATE TABLE tbl_cursos (
+    id_curso INT PRIMARY KEY AUTO_INCREMENT, 
+    nome VARCHAR(255) NOT NULL, 
+    carga_horaria INT NOT NULL, 
+    modalidade VARCHAR(50) NOT NULL
+);
+
+#Tabela de turmas
+CREATE TABLE tbl_turmas (
+    id_turma INT PRIMARY KEY AUTO_INCREMENT, 
+    nome VARCHAR(100) NOT NULL, 
+    ano INT NOT NULL, 
+    semestre VARCHAR(10) NOT NULL, 
+    id_curso INT NOT NULL,
+    FOREIGN KEY (id_curso) REFERENCES tbl_cursos(id_curso)
+);
+
+#Tabela de professores
+CREATE TABLE tbl_professores (
+    id_professor INT PRIMARY KEY AUTO_INCREMENT, 
+    nome VARCHAR(255) NOT NULL, 
+    cpf VARCHAR(14) UNIQUE NOT NULL, 
+    email VARCHAR(255) UNIQUE NOT NULL, 
+    especializacao VARCHAR(255), 
+    telefone VARCHAR(15) NOT NULL,
+    senha VARCHAR(255) NOT NULL
+);
+
+#Tabela de disciplinas
+CREATE TABLE tbl_disciplinas (
+    id_disciplina INT PRIMARY KEY AUTO_INCREMENT, 
+    nome VARCHAR(255) NOT NULL, 
+    carga_horaria INT NOT NULL, 
+    pre_requisito INT,
+    id_professor INT NOT NULL,
+    FOREIGN KEY (pre_requisito) REFERENCES tbl_disciplinas(id_disciplina),
+    FOREIGN KEY (id_professor) REFERENCES tbl_professores(id_professor)
+);
+
+#Tabela de matrículas
+CREATE TABLE tbl_matriculas (
+    id_matricula INT PRIMARY KEY AUTO_INCREMENT, 
+    id_aluno INT NOT NULL, 
+    id_turma INT NOT NULL, 
+    id_disciplina INT NOT NULL,
+    FOREIGN KEY (id_aluno) REFERENCES tbl_alunos(id_aluno),
+    FOREIGN KEY (id_turma) REFERENCES tbl_turmas(id_turma),
+    FOREIGN KEY (id_disciplina) REFERENCES tbl_disciplinas(id_disciplina)
+);
+
+#Tabela de avaliações
+CREATE TABLE tbl_avaliacoes (
+    id_avaliacao INT PRIMARY KEY AUTO_INCREMENT, 
+    nota FLOAT NOT NULL, 
+    id_professor INT NOT NULL, 
+    id_matricula INT NOT NULL,
+    FOREIGN KEY (id_professor) REFERENCES tbl_professores(id_professor),
+    FOREIGN KEY (id_matricula) REFERENCES tbl_matriculas(id_matricula)
+);
+
+SHOW TABLES;
