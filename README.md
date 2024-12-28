@@ -41,12 +41,3 @@ Montar turmas e alocar alunos nas disciplinas.
 Avaliar o desempenho dos alunos através das notas.
 Gerar relatórios e estatísticas sobre cursos e alunos.
 
-Tabelas a serem criadas:
-
-Alunos,
-Cursos,
-Disciplinas,
-Professores,
-Turmas,
-Matrículas,
-Notas.
